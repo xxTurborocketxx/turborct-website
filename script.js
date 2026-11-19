@@ -127,3 +127,85 @@
       setTimeout(() => { h1.textContent = "Rocket"; }, 4000);
     }
   });
+
+  // ─── animated background: twinkling stars + shooting stars ───
+  (function () {
+    const cv = document.getElementById("bgCanvas");
+    if (!cv) return;
+    const ctx = cv.getContext("2d");
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let stars = [], meteors = [], W = 0, H = 0, nextMeteor = 0;
+
+    function resize() {
+      W = cv.width = window.innerWidth;
+      H = cv.height = window.innerHeight;
+      const count = Math.min(220, Math.round(W * H / 9000));
+      stars = Array.from({ length: count }, () => ({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: 0.4 + Math.random() * 1.1,
+        p: Math.random() * Math.PI * 2,
+        s: 0.4 + Math.random() * 1.6,
+        b: 0.25 + Math.random() * 0.5
+      }));
+    }
+    resize();
+    window.addEventListener("resize", resize);
+
+    function spawnMeteor() {
+      meteors.push({
+        x: W * 0.1 + Math.random() * W * 0.8,
+        y: Math.random() * H * 0.3,
+        vx: 5 + Math.random() * 4,
+        vy: 2.2 + Math.random() * 1.6,
+        life: 0,
+        maxLife: 70 + Math.random() * 50
+      });
+    }
+
+    function draw(t) {
+      ctx.clearRect(0, 0, W, H);
+      for (const st of stars) {
+        const a = st.b + Math.sin(t * 0.001 * st.s + st.p) * 0.25;
+        ctx.globalAlpha = Math.max(0.05, a);
+        ctx.fillStyle = "#c9b8ff";
+        ctx.beginPath();
+        ctx.arc(st.x, st.y, st.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      for (let i = meteors.length - 1; i >= 0; i--) {
+        const m = meteors[i];
+        m.x += m.vx; m.y += m.vy; m.life++;
+        const fade = 1 - m.life / m.maxLife;
+        if (fade <= 0) { meteors.splice(i, 1); continue; }
+        const tail = 11;
+        const tx = m.x - m.vx * tail, ty = m.y - m.vy * tail;
+        const grad = ctx.createLinearGradient(m.x, m.y, tx, ty);
+        grad.addColorStop(0, "rgba(216, 180, 254, " + (0.85 * fade).toFixed(3) + ")");
+        grad.addColorStop(1, "rgba(216, 180, 254, 0)");
+        ctx.globalAlpha = 1;
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 1.6;
+        ctx.beginPath();
+        ctx.moveTo(m.x, m.y);
+        ctx.lineTo(tx, ty);
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    if (reduced) {
+      draw(0);
+    } else {
+      function loop(t) {
+        draw(t);
+        if (t > nextMeteor) {
+          spawnMeteor();
+          nextMeteor = t + 7000 + Math.random() * 9000;
+        }
+        requestAnimationFrame(loop);
+      }
+      nextMeteor = performance.now() + 3500;
+      requestAnimationFrame(loop);
+    }
+  })();
