@@ -272,6 +272,34 @@
   body::before { animation: gridDrift 14s linear infinite; }
   @keyframes gridDrift { to { background-position: 44px 44px; } }
 
+  /* ─── cursor ring + glow ─── */
+  #cursorRing, #cursorGlow {
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; opacity: 0;
+  }
+  #cursorRing {
+    width: 58px; height: 58px; margin: -29px 0 0 -29px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.16) 0%, rgba(168, 85, 247, 0.10) 55%, rgba(168, 85, 247, 0) 75%);
+    border: 1px solid rgba(192, 132, 252, 0.22);
+    z-index: 95; transform-origin: center;
+    transition: opacity 0.3s, border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  }
+  #cursorGlow {
+    width: 110px; height: 110px; margin: -55px 0 0 -55px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.13), transparent 65%);
+    z-index: 94;
+    transition: opacity 0.3s;
+  }
+  #cursorRing.show, #cursorGlow.show { opacity: 1; }
+  #cursorRing.hot {
+    background: radial-gradient(circle, rgba(192, 132, 252, 0.24) 0%, rgba(168, 85, 247, 0.14) 55%, rgba(168, 85, 247, 0) 75%);
+    border-color: rgba(216, 180, 254, 0.5);
+    box-shadow: 0 0 26px rgba(168, 85, 247, 0.35);
+  }
+  @media (pointer: coarse) { #cursorRing, #cursorGlow { display: none; } }
+
   @media (prefers-reduced-motion: reduce) {
     body::before { animation: none; }
     .aurora { animation: none !important; }

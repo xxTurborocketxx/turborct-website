@@ -128,13 +128,58 @@
     }
   });
 
-  // ─── animated background: twinkling stars + shooting stars ───
+  // ─── animated background: stars, meteors, glints + cursor ring ───
   (function () {
     const cv = document.getElementById("bgCanvas");
-    if (!cv) return;
-    const ctx = cv.getContext("2d");
+    const ctx = cv ? cv.getContext("2d") : null;
+    const ring = document.getElementById("cursorRing");
+    const glow = document.getElementById("cursorGlow");
+    const fine = window.matchMedia("(pointer: fine)").matches && !!ring && !!glow;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let stars = [], meteors = [], W = 0, H = 0, nextMeteor = 0;
+
+    let stars = [], meteors = [], glints = [];
+    let W = 0, H = 0, mX = -200, mY = -200;
+    let cx = 0, cy = 0, gx = 0, gy = 0, scale = 1;
+    let hover = false, ringOn = false;
+    let parX = 0, parY = 0;
+    let simT = 0, last = performance.now();
+    let nextMeteor = 3.5, nextGlint = 2.5;
+
+    function applyCursor() {
+      ring.style.transform = "translate(" + cx + "px," + cy + "px) scale(" + scale.toFixed(3) + ")";
+      glow.style.transform = "translate(" + gx + "px," + gy + "px)";
+    }
+
+    function snapCursor() {
+      cx = gx = mX; cy = gy = mY;
+      scale = hover ? 1.5 : 1;
+      if (fine) applyCursor();
+    }
+
+    window.addEventListener("pointermove", (e) => {
+      mX = e.clientX; mY = e.clientY;
+      if (!fine) return;
+      if (!ringOn) {
+        ringOn = true;
+        if (!reduced) snapCursor();
+        ring.classList.add("show");
+        glow.classList.add("show");
+      }
+      if (reduced) snapCursor();
+    }, { passive: true });
+
+    document.addEventListener("mouseover", (e) => {
+      if (!fine) return;
+      hover = !!(e.target.closest && e.target.closest("a, button, .chip, input, textarea, select, label"));
+      ring.classList.toggle("hot", hover);
+      if (reduced) { scale = hover ? 1.5 : 1; applyCursor(); }
+    });
+
+    document.addEventListener("mouseleave", () => {
+      ringOn = false;
+      ring.classList.remove("show");
+      glow.classList.remove("show");
+    });
 
     function resize() {
       W = cv.width = window.innerWidth;
@@ -146,40 +191,68 @@
         r: 0.4 + Math.random() * 1.1,
         p: Math.random() * Math.PI * 2,
         s: 0.4 + Math.random() * 1.6,
-        b: 0.25 + Math.random() * 0.5
+        b: 0.25 + Math.random() * 0.5,
+        d: 0.25 + Math.random() * 0.75
       }));
     }
-    resize();
-    window.addEventListener("resize", resize);
 
     function spawnMeteor() {
+      if (meteors.length >= 5) return;
+      const sp = 300 + Math.random() * 220;
       meteors.push({
-        x: W * 0.1 + Math.random() * W * 0.8,
-        y: Math.random() * H * 0.3,
-        vx: 5 + Math.random() * 4,
-        vy: 2.2 + Math.random() * 1.6,
-        life: 0,
-        maxLife: 70 + Math.random() * 50
+        x: W * (0.05 + Math.random() * 0.9),
+        y: Math.random() * H * 0.25,
+        vx: sp,
+        vy: sp * (0.38 + Math.random() * 0.14),
+        age: 0,
+        dur: 1.2 + Math.random() * 0.9
       });
     }
 
-    function draw(t) {
-      ctx.clearRect(0, 0, W, H);
+    function spawnGlint() {
+      if (glints.length >= 4 || !stars.length) return;
+      glints.push({ st: stars[(Math.random() * stars.length) | 0], age: 0, dur: 0.6 + Math.random() * 0.6 });
+    }
+
+    function drawStars(t) {
       for (const st of stars) {
+        const x = st.x + parX * st.d * 52;
+        const y = st.y + parY * st.d * 32;
         const a = st.b + Math.sin(t * 0.001 * st.s + st.p) * 0.25;
         ctx.globalAlpha = Math.max(0.05, a);
         ctx.fillStyle = "#c9b8ff";
         ctx.beginPath();
-        ctx.arc(st.x, st.y, st.r, 0, Math.PI * 2);
+        ctx.arc(x, y, st.r, 0, Math.PI * 2);
         ctx.fill();
       }
+    }
+
+    function drawGlints(dt) {
+      for (let i = glints.length - 1; i >= 0; i--) {
+        const g = glints[i];
+        g.age += dt;
+        const p = g.age / g.dur;
+        if (p >= 1) { glints.splice(i, 1); continue; }
+        const x = g.st.x + parX * g.st.d * 52;
+        const y = g.st.y + parY * g.st.d * 32;
+        const len = 3.5 + p * 9;
+        ctx.globalAlpha = Math.sin(p * Math.PI);
+        ctx.strokeStyle = "#e7dbff";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(x - len, y); ctx.lineTo(x + len, y);
+        ctx.moveTo(x, y - len); ctx.lineTo(x, y + len);
+        ctx.stroke();
+      }
+    }
+
+    function drawMeteors(dt) {
       for (let i = meteors.length - 1; i >= 0; i--) {
         const m = meteors[i];
-        m.x += m.vx; m.y += m.vy; m.life++;
-        const fade = 1 - m.life / m.maxLife;
-        if (fade <= 0) { meteors.splice(i, 1); continue; }
-        const tail = 11;
-        const tx = m.x - m.vx * tail, ty = m.y - m.vy * tail;
+        m.x += m.vx * dt; m.y += m.vy * dt; m.age += dt;
+        const fade = 1 - m.age / m.dur;
+        if (fade <= 0 || m.y > H + 120 || m.x > W + 220) { meteors.splice(i, 1); continue; }
+        const tx = m.x - m.vx * 0.26, ty = m.y - m.vy * 0.26;
         const grad = ctx.createLinearGradient(m.x, m.y, tx, ty);
         grad.addColorStop(0, "rgba(216, 180, 254, " + (0.85 * fade).toFixed(3) + ")");
         grad.addColorStop(1, "rgba(216, 180, 254, 0)");
@@ -194,18 +267,50 @@
       ctx.globalAlpha = 1;
     }
 
-    if (reduced) {
-      draw(0);
-    } else {
-      function loop(t) {
-        draw(t);
-        if (t > nextMeteor) {
-          spawnMeteor();
-          nextMeteor = t + 7000 + Math.random() * 9000;
+    if (ctx) {
+      resize();
+      window.addEventListener("resize", resize);
+      if (reduced) {
+        drawStars(0);
+      } else {
+        // no meteor backlog while the tab is hidden: clear the sky on hide,
+        // resync the clock on return, cap the dt per frame
+        document.addEventListener("visibilitychange", () => {
+          if (document.hidden) {
+            meteors.length = 0;
+          } else {
+            last = performance.now();
+            nextMeteor = simT + 2.5;
+          }
+        });
+        function loop(now) {
+          const dt = Math.min(0.05, (now - last) / 1000);
+          last = now;
+          simT += dt;
+          if (fine && ringOn) {
+            cx += (mX - cx) * Math.min(1, dt * 9);
+            cy += (mY - cy) * Math.min(1, dt * 9);
+            gx += (mX - gx) * Math.min(1, dt * 20);
+            gy += (mY - gy) * Math.min(1, dt * 20);
+            scale += ((hover ? 1.5 : 1) - scale) * Math.min(1, dt * 12);
+            applyCursor();
+          }
+          // gentle mouse parallax: deeper stars move less
+          parX += ((mX / W - 0.5) - parX) * Math.min(1, dt * 3);
+          parY += ((mY / H - 0.5) - parY) * Math.min(1, dt * 3);
+          ctx.clearRect(0, 0, W, H);
+          drawStars(simT * 1000);
+          drawGlints(dt);
+          drawMeteors(dt);
+          if (simT > nextGlint) { spawnGlint(); nextGlint = simT + 2 + Math.random() * 5; }
+          if (simT > nextMeteor) {
+            spawnMeteor();
+            const turbo = document.body.classList.contains("turbo");
+            nextMeteor = simT + (turbo ? 1.6 + Math.random() * 2.4 : 7 + Math.random() * 9);
+          }
+          requestAnimationFrame(loop);
         }
         requestAnimationFrame(loop);
       }
-      nextMeteor = performance.now() + 3500;
-      requestAnimationFrame(loop);
     }
   })();
