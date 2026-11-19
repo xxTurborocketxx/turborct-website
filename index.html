@@ -1,70 +1,158 @@
 <!doctype html>
 <html lang="de">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="dark">
-  <meta name="theme-color" content="#0e0b15">
-  <meta name="description" content="Turbo Rocket, TurboRCT oder einfach Turbo. Meine persönliche Seite auf turborct.rip.">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Turbo Rocket · turborct.rip">
-  <meta property="og:description" content="Turbo Rocket, TurboRCT oder einfach Turbo.">
-  <meta property="og:url" content="https://turborct.rip/">
-  <title>Turbo Rocket · turborct.rip</title>
-  <link rel="canonical" href="https://turborct.rip/">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%239e7bff'/%3E%3Cpath d='M24 23c9-10 19-12 23-11 1 4-1 14-11 23l-9-3z' fill='%230e0b15'/%3E%3Ccircle cx='37' cy='22' r='4' fill='%239e7bff'/%3E%3Cpath d='m24 23-11 3-3 9 16-3m10 3-3 11-9 3 3-17M19 39l-5 11 11-5' fill='%230e0b15'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="./style.css">
-  <script src="./extras.js" defer></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TurboRocket · turborct.rip</title>
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <a class="skip-link" href="#main">Zum Inhalt</a>
-  <div class="site-shell">
-    <header class="site-header">
-      <a class="site-name" href="#main" aria-label="Turbo Rocket – Startseite">turborct<span>.rip</span></a>
-      <span class="header-note">PERSONAL SPACE</span>
-      <a class="header-link" href="https://github.com/xxTurborocketxx" target="_blank" rel="noopener noreferrer">GitHub <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg><span class="sr-only"> (öffnet in neuem Tab)</span></a>
-    </header>
-    <main id="main">
-      <section class="identity" aria-labelledby="page-title">
-        <div class="title-intro"><span class="label">IRGENDWO IM INTERNET</span><span class="edition" aria-hidden="true">TR / .RIP</span></div>
-        <h1 id="page-title"><span class="name-turbo">TURBO</span><span class="name-rocket">ROCKET<span class="title-dot" aria-hidden="true">.</span></span></h1>
-        <div class="profile-layout">
-          <figure class="profile-figure">
-            <div class="photo-frame">
-              <div class="frame-heading"><span>THE ORIGINAL</span><span class="frame-detail" aria-hidden="true">[ TR ]</span></div>
-              <button class="launch-button" id="launch-button" type="button" aria-label="Profilbild abheben lassen" disabled><img class="profile-photo" src="./assets/profile.png" width="460" height="460" alt="Mein langjähriges Profilbild: orange-roter TURBO-ROCKET-Schriftzug und zwei Raketen vor einem Feldweg." fetchpriority="high"></button>
-              <figcaption><span id="photo-caption">Seit ewig dabei.</span><span aria-hidden="true">✳</span></figcaption>
-            </div>
-            <span class="photo-sticker" aria-hidden="true">STILL ME.</span>
-            <span class="tiny-rocket" aria-hidden="true">🚀</span>
-          </figure>
-          <div class="profile-copy">
-            <p class="label intro-label"><span aria-hidden="true">✳</span> DAS BIN ICH. SO UNGEFÄHR.</p>
-            <h2>hey, ich<br>bin <span>turbo.</span></h2>
-            <p class="intro-text">Turbo Rocket, TurboRCT oder einfach Turbo. Das hier ist mein Platz im Netz.</p>
-            <p class="avatar-note">Das Profilbild? Bleibt.<br>Ist inzwischen praktisch Inventar.</p>
-            <a class="bonus-link flight-reward" id="flight-reward" href="https://www.youtube.com/watch?v=fC7oUOUEEi4" target="_blank" rel="noopener noreferrer" hidden>Flugprotokoll ansehen <span aria-hidden="true">↗</span><span class="sr-only"> (öffnet in neuem Tab)</span></a>
-            <a class="profile-link" href="https://github.com/xxTurborocketxx" target="_blank" rel="noopener noreferrer">
-              <span class="github-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 19c-4 1.2-4-2-6-2m12 5v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 19 4.77 5.07 5.07 0 0 0 18.91 1S17.73.65 15 2.48a13.38 13.38 0 0 0-6 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></span>
-              <span class="link-description"><span class="link-name">GitHub</span><span class="link-handle">@xxTurborocketxx</span></span>
-              <svg class="link-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
-              <span class="sr-only"> (öffnet in neuem Tab)</span>
-            </a>
-            <a class="side-project" href="https://ur-mom.org" target="_blank" rel="noopener noreferrer"><span><strong>ur-mom.org</strong><span>Mein Nebenprojekt. Niveau optional.</span></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg><span class="sr-only"> (öffnet in neuem Tab)</span></a>
-          </div>
+<div class="scanline"></div>
+<div id="turboFlash"></div>
+<main>
+
+  <nav>
+    <a class="logo" href="#" id="rocketLogo" title="Nicht klicken. Oder doch." data-tp-de="Nicht klicken. Oder doch." data-tp-en="Do not click. Or do.">
+      <span class="rocket-btn" id="rocketBtn"><span id="rocketIcon">🚀</span></span>
+      turbo<span class="bracket">[rct]</span>
+    </a>
+    <div class="nav-links">
+      <a href="#projekte" data-de="Projekte" data-en="Projects">Projekte</a>
+      <a href="#links" data-de="Links" data-en="Links">Links</a>
+      <a href="https://github.com/xxTurborocketxx" target="_blank" rel="noopener">GitHub</a>
+      <div class="lang-toggle" id="langToggle" title="Sprache / Language">
+        <button type="button" data-lang="de" class="active">DE</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <p class="kicker" data-de="irgendwo im internet · turborct.rip" data-en="somewhere on the internet · turborct.rip">irgendwo im internet · turborct.rip</p>
+    <h1>Turbo<span class="tr">Rocket</span><span class="dot">.</span></h1>
+    <p class="tagline"
+       data-de="Hallo, ich bin <strong>Turbo</strong>. Systemintegrator, kein Entwickler. Aber wenn ein Gerät sagt &quot;das geht nicht&quot;, frage ich manchmal trotzdem nach, warum. Und manchmal wird daraus ein Projekt."
+       data-en="Hi, I am <strong>Turbo</strong>. Systems integrator, not a developer. But when a device says &quot;can&#39;t be done&quot;, I sometimes ask why anyway. And sometimes that turns into a project.">
+      Hallo, ich bin <strong>Turbo</strong>. Systemintegrator, kein Entwickler.
+      Aber wenn ein Gerät sagt "das geht nicht", frage ich manchmal trotzdem nach,
+      warum. Und manchmal wird daraus ein Projekt.
+    </p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="https://github.com/xxTurborocketxx/TimerRoot" target="_blank" rel="noopener" data-de="★ TimerRoot ansehen" data-en="★ Check out TimerRoot">★ TimerRoot ansehen</a>
+      <a class="btn btn-ghost" href="#projekte" data-de="Projekte ansehen" data-en="View projects">Projekte ansehen</a>
+    </div>
+  </header>
+
+  <section id="projekte">
+    <p class="sec-label"><b>01</b>&nbsp;<span data-de="// Projekte" data-en="// Projects">// Projekte</span></p>
+    <div class="grid">
+
+      <div class="card wide">
+        <div class="card-top">
+          <h3>TimerRoot</h3>
+          <span class="badge badge-active" data-de="● Aktiv" data-en="● Active">● Aktiv</span>
         </div>
-      </section>
-      <section class="sidequest" id="sidequest" aria-labelledby="sidequest-title" hidden>
-        <div class="toy-heading"><h3 id="sidequest-title">Kann man machen.</h3><p>Bringt nichts. Zählt trotzdem.</p></div>
-        <div class="toy-controls"><button class="useless-button" id="useless-button" type="button">Nicht drücken.</button><output id="click-count" for="useless-button" aria-label="Klicks in diesem Besuch" aria-live="off">0</output><button class="quiet-button" id="reset-button" type="button">Reset</button><button class="secret-button" id="secret-button" type="button" aria-label="Geheimen Modus umschalten" aria-pressed="false">???</button></div>
-        <p class="toy-status" id="toy-status" role="status">Noch nichts erreicht. Läuft.</p>
-        <a class="bonus-link click-reward" id="click-reward" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer" hidden>Belohnung abholen <span aria-hidden="true">↗</span><span class="sr-only"> (öffnet in neuem Tab)</span></a>
-        <p class="toy-note">Zähler nur für diesen Besuch.</p>
-      </section>
-      <p class="egg-status" id="egg-status" role="status"></p>
-      <a class="bonus-link turbo-reward" id="turbo-reward" href="https://www.youtube.com/watch?v=-a5Ba-CG8uc" target="_blank" rel="noopener noreferrer" hidden>Geheimes Turbo-Upgrade <span aria-hidden="true">↗</span><span class="sr-only"> (öffnet in neuem Tab)</span></a>
-    </main>
-    <footer class="site-footer"><span class="footer-wordmark">TURBO ROCKET</span><span class="footer-note">bis zum nächsten tab.</span><a href="#main">Nach oben <span aria-hidden="true">↑</span></a></footer>
-  </div>
+        <p data-de="Temp-Root per Knopfdruck fürs Motorola Edge 50 Ultra: ein POSIX-Timer-UAF (<code>CVE-2026-98260</code>), portiert auf Motorolas GKI-Kernel, mit KernelSU im Jailbreak-Modus. Ein Knopf, ungefähr dreizehn Sekunden, <code>uid=0</code>. Ganz ohne Bootloader-Unlock."
+           data-en="One-tap temp root for the Motorola Edge 50 Ultra: a POSIX timer UAF (<code>CVE-2026-98260</code>), ported to Motorola&#39;s GKI kernel, with KernelSU in jailbreak mode. One button, roughly thirteen seconds, <code>uid=0</code>. All without unlocking the bootloader.">
+          Temp-Root per Knopfdruck fürs Motorola Edge 50 Ultra: ein POSIX-Timer-UAF
+          (<code>CVE-2026-98260</code>), portiert auf Motorolas GKI-Kernel, mit
+          KernelSU im Jailbreak-Modus. Ein Knopf, ungefähr dreizehn Sekunden,
+          <code>uid=0</code>. Ganz ohne Bootloader-Unlock.
+        </p>
+        <div class="card-links">
+          <a href="https://github.com/xxTurborocketxx/TimerRoot" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://github.com/xxTurborocketxx/TimerRoot/releases" target="_blank" rel="noopener">Releases</a>
+          <a href="https://xdaforums.com/m/turborct.11690471/" target="_blank" rel="noopener">XDA</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <h3>OrangeFox-Builds</h3>
+          <span class="badge badge-done" data-de="Archiviert" data-en="Archived">Archiviert</span>
+        </div>
+        <p data-de="Inoffizielle Recovery-Builds für Galaxy S20 FE und S21 FE (Snapdragon und Exynos). Damals mein Einstieg ins Kompilieren von AOSP-Projekten: im Wesentlichen ein TWRP-Tree, minimal angepasst, gebaut und veröffentlicht."
+           data-en="Unofficial recovery builds for the Galaxy S20 FE and S21 FE (Snapdragon and Exynos). My entry into compiling AOSP projects back in the day: essentially a TWRP tree, minimally modified, built and released.">
+          Inoffizielle Recovery-Builds für Galaxy S20 FE und S21 FE
+          (Snapdragon und Exynos). Damals mein Einstieg ins Kompilieren
+          von AOSP-Projekten: im Wesentlichen ein TWRP-Tree, minimal
+          angepasst, gebaut und veröffentlicht.
+        </p>
+        <div class="card-links">
+          <a href="https://xdaforums.com/t/unofficial-recovery-orangefox-recovery-project-for-s20-fe-snap-exynos.4439485/" target="_blank" rel="noopener">S20 FE Thread</a>
+          <a href="https://xdaforums.com/t/unofficial-recovery-orangefox-recovery-project-for-s21-fe-snap-exynos.4546143/" target="_blank" rel="noopener">S21 FE Thread</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <h3>TurboUI</h3>
+          <span class="badge badge-done">EOL</span>
+        </div>
+        <p data-de="Custom-ROM auf OneUI 5.1-Basis für das Galaxy S20 FE. Tweaks und Feature-Patches bis zum Umfallen. Das Projekt ist beendet, die Projektseite steht noch als Zeitkapsel."
+           data-en="Custom ROM based on OneUI 5.1 for the Galaxy S20 FE. Tweaks and feature patches galore. The project is finished, the project page remains as a time capsule.">
+          Custom-ROM auf OneUI 5.1-Basis für das Galaxy S20 FE.
+          Tweaks und Feature-Patches bis zum Umfallen. Das Projekt ist
+          beendet, die Projektseite steht noch als Zeitkapsel.
+        </p>
+        <div class="card-links">
+          <a href="https://xxturborocketxx.github.io/" target="_blank" rel="noopener" data-de="Projektseite" data-en="Project page">Projektseite</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <p class="sec-label"><b>02</b>&nbsp;<span data-de="// Werkzeugkasten" data-en="// Toolbox">// Werkzeugkasten</span></p>
+    <div class="stack-row">
+      <span class="chip">Android</span>
+      <span class="chip">Samsung Odin</span>
+      <span class="chip">adb &amp; fastboot</span>
+      <span class="chip" data-de="Custom-ROMs flashen" data-en="Flashing custom ROMs">Custom-ROMs flashen</span>
+      <span class="chip" data-de="Recovery-Images" data-en="Recovery images">Recovery-Images</span>
+      <span class="chip">KernelSU &amp; Manager</span>
+      <span class="chip">Shizuku</span>
+      <span class="chip" data-de="Geräte-Integration" data-en="Device integration">Geräte-Integration</span>
+    </div>
+    <p class="sec-note"
+       data-de="// Der eigentliche Code dahinter stammt von schlaueren Köpfen. Odin kann ich dafür blind."
+       data-en="// The actual code behind it comes from smarter minds. Odin, on the other hand, I know blindfolded.">
+      // Der eigentliche Code dahinter stammt von schlaueren Köpfen.
+      Odin kann ich dafür blind.</p>
+  </section>
+
+  <section id="links">
+    <p class="sec-label"><b>03</b>&nbsp;<span data-de="// Findest mich hier" data-en="// Where to find me">// Findest mich hier</span></p>
+    <div class="links-grid">
+      <a class="link-row" href="https://github.com/xxTurborocketxx" target="_blank" rel="noopener">
+        <div><div class="name">GitHub</div><div class="desc">Code, Releases, Issues</div></div>
+        <span class="arrow">→</span>
+      </a>
+      <a class="link-row" href="https://xdaforums.com/m/turborct.11690471/" target="_blank" rel="noopener">
+        <div><div class="name">XDA Forums</div><div class="desc" data-de="Senior Member seit ewig" data-en="Senior Member forever">Senior Member seit ewig</div></div>
+        <span class="arrow">→</span>
+      </a>
+      <a class="link-row" href="https://www.google.com/search?q=%22TurboRCT%22+OR+%22xxTurborocketxx%22" target="_blank" rel="noopener">
+        <div><div class="name" data-de="Anderswo" data-en="Elsewhere">Anderswo</div><div class="desc" data-de="Auf vielen anderen Plattformen, gleicher Name" data-en="Many other platforms, same name">Auf vielen anderen Plattformen, gleicher Name</div></div>
+        <span class="arrow">→</span>
+      </a>
+      <a class="link-row" href="mailto:turbo@turborct.rip">
+        <div><div class="name">Mail</div><div class="desc" data-de="turbo@, die Adresse, die echt existiert" data-en="turbo@, the address that actually exists">turbo@, die Adresse, die echt existiert</div></div>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <p>turborct<span>.rip</span> · <span data-de="gebaut mit 🚀 und zu viel Kaffee" data-en="built with 🚀 and too much coffee">gebaut mit 🚀 und zu viel Kaffee</span></p>
+    <p><span id="eggHint" title="Es gibt mehr, als du siehst." data-tp-de="Es gibt mehr, als du siehst." data-tp-en="There is more than you see.">1337</span> <span data-de="Easter Eggs versteckt." data-en="Easter Eggs hidden.">Easter Eggs versteckt.</span> <span id="eggFound" title="Konami-Code hilft. Nein, wird er nicht." data-tp-de="Konami-Code hilft. Nein, wird er nicht." data-tp-en="The Konami code helps. No, it will not.">0</span> <span data-de="gefunden" data-en="found">gefunden</span></p>
+  </footer>
+
+</main>
+<div id="toastBox"></div>
+
+<script src="script.js"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" nonce="fkKTjf7CVnYYX6lZGeUM8Q==" data-cf-beacon='{"version":"2024.11.0","token":"36b4216ae2dc4d5488c249161e71fe1e","spa":2}' crossorigin="anonymous"></script>
 </body>
 </html>
