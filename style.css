@@ -233,7 +233,12 @@
   .toast.bye { transition: all 0.4s; transform: translateX(130%); opacity: 0; }
 
   /* ─── turbo mode (konami) ─── */
-  body.turbo { filter: hue-rotate(40deg) saturate(1.5); }
+  /* hue-shift content and backdrop, but never `body` itself: a filter on body
+     turns position:fixed into page-relative (spec behavior), which displaces
+     the cursor circle, toast box and scanline as soon as the page scrolls */
+  body.turbo main,
+  body.turbo .aurora,
+  body.turbo #bgCanvas { filter: hue-rotate(40deg) saturate(1.5); }
   body.turbo h1 .dot { animation: blink 0.5s steps(1) infinite; }
   body.turbo::after {
     background: radial-gradient(closest-side, rgba(192, 132, 252, 0.5), transparent 70%) !important;
@@ -276,6 +281,7 @@
   #cursorRing, #cursorGlow {
     position: fixed; top: 0; left: 0;
     pointer-events: none; opacity: 0;
+    will-change: transform;
   }
   #cursorRing {
     width: 58px; height: 58px; margin: -29px 0 0 -29px;
@@ -310,8 +316,13 @@
     background: linear-gradient(transparent, rgba(168,85,247,0.08), transparent);
     pointer-events: none;
   }
-  body.turbo .scanline { animation: scan 2.4s linear infinite; }
-  @keyframes scan { to { top: 100vh; } }
+  body.turbo .scanline { animation: scan 2.4s linear infinite; will-change: transform; }
+  /* GPU transform instead of `top`: no layout work per frame, and the
+     beam reliably scans the whole viewport even when the page is scrolled */
+  @keyframes scan {
+    from { transform: translateY(0); }
+    to { transform: translateY(calc(100vh + 90px)); }
+  }
 
   @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.15; } }
   @keyframes shake {
@@ -327,4 +338,9 @@
     .nav-links { justify-content: flex-end; }
     .hero { padding: 48px 0 40px; }
     #toastBox { left: 16px; right: 16px; bottom: 16px; }
+    /* smaller aurora blobs + reduced blur = far cheaper compositing on phones */
+    .aurora { filter: blur(46px); }
+    .aurora-1 { width: 380px; height: 380px; top: -140px; left: -120px; }
+    .aurora-2 { width: 440px; height: 440px; right: -170px; }
+    .aurora-3 { width: 320px; height: 320px; bottom: -150px; }
   }

@@ -214,17 +214,30 @@
       glints.push({ st: stars[(Math.random() * stars.length) | 0], age: 0, dur: 0.6 + Math.random() * 0.6 });
     }
 
+    // pre-rendered star sprite: one drawImage call per star is much
+    // cheaper than ~220 arc paths with fill state changes every frame
+    const dot = document.createElement("canvas");
+    dot.width = dot.height = 16;
+    (function () {
+      const d = dot.getContext("2d");
+      const g = d.createRadialGradient(8, 8, 0, 8, 8, 8);
+      g.addColorStop(0, "rgba(201, 184, 255, 1)");
+      g.addColorStop(0.4, "rgba(201, 184, 255, 0.55)");
+      g.addColorStop(1, "rgba(201, 184, 255, 0)");
+      d.fillStyle = g;
+      d.fillRect(0, 0, 16, 16);
+    })();
+
     function drawStars(t) {
       for (const st of stars) {
         const x = st.x + parX * st.d * 52;
         const y = st.y + parY * st.d * 32;
         const a = st.b + Math.sin(t * 0.001 * st.s + st.p) * 0.25;
         ctx.globalAlpha = Math.max(0.05, a);
-        ctx.fillStyle = "#c9b8ff";
-        ctx.beginPath();
-        ctx.arc(x, y, st.r, 0, Math.PI * 2);
-        ctx.fill();
+        const s = st.r * 8;
+        ctx.drawImage(dot, x - s / 2, y - s / 2, s, s);
       }
+      ctx.globalAlpha = 1;
     }
 
     function drawGlints(dt) {
